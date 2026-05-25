@@ -16,7 +16,7 @@ export default function Footer() {
           transition={{ duration: 0.6 }}
           className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10"
         >
-          <div>
+          <div className="text-left">
             <a
               href="#home"
               className="flex items-center mb-4 hover:opacity-90 transition-opacity"
@@ -119,7 +119,7 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-7xl mx-auto px-4 md:px-8 mt-10 md:mt-12 pt-6 border-t border-white/10 text-xs md:text-sm text-white/60 flex flex-col gap-3 md:flex-row md:gap-2 justify-between text-center md:text-left"
+          className="max-w-7xl mx-auto px-4 md:px-8 mt-10 md:mt-12 pt-6 border-t border-white/10 text-xs md:text-sm text-white/60 flex flex-col gap-3 md:flex-row md:gap-2 justify-between text-left"
         >
           <p>
             © {new Date().getFullYear()} {isAr ? "بركة الواحة" : "Barakat Al Waha"}.{" "}
@@ -176,7 +176,7 @@ export default function Footer() {
 
 function FooterCol({ title, links }) {
   return (
-    <div>
+    <div className="text-left">
       <h4 className="font-display text-base md:text-lg font-semibold mb-4">{title}</h4>
       <ul className="space-y-2 md:space-y-3 text-xs md:text-sm">
         {links.map((link) => (
