@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar, { LanguageProvider, useLanguage } from "@/components/site/Navbar.jsx";
+import TopBar from "@/components/site/TopBar.jsx";
 import Hero from "@/components/site/Hero.jsx";
 import FeaturedProducts from "@/components/site/FeaturedProducts.jsx";
 import OurVision from "@/components/site/OurVision.jsx";
@@ -26,9 +27,10 @@ function HashScrollHandler({ route, isPreloaderComplete }) {
       const scrollToTarget = () => {
         const element = document.getElementById(targetId);
         if (element) {
-          const navbarHeight = 96;
+          const topBarHeight = 80; // TopBar is always 80px
+          const navbarHeight = 96; // Navbar is 96px
           const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-          const offsetPosition = elementPosition - navbarHeight;
+          const offsetPosition = elementPosition - navbarHeight - topBarHeight;
 
           window.scrollTo({
             top: offsetPosition,
@@ -108,7 +110,8 @@ function HomePage() {
   }, [isAr]);
 
   return (
-    <main className="bg-background text-foreground">
+    <main className="bg-background text-foreground pt-[176px]">
+      <TopBar />
       <Navbar />
       <Hero />
       <About />

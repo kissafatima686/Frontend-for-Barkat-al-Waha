@@ -165,7 +165,7 @@ export default function Navbar() {
       initial={{ y: -176 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 inset-x-0 z-50 bg-brand-dark border-b border-white/10 shadow-lg flex flex-col w-full"
+      className="fixed top-[80px] inset-x-0 z-50 bg-brand-dark border-b border-white/10 shadow-lg flex flex-col w-full"
       dir={isAr ? "rtl" : "ltr"}
     >
       {/* MAIN NAVBAR */}
