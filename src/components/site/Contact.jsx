@@ -1,12 +1,21 @@
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Send } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/components/site/Navbar.jsx";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
   const { language } = useLanguage();
   const isAr = language === "ar";
+  const [productInterest, setProductInterest] = useState("");
+
+  useEffect(() => {
+    const handlePrefill = (e) => {
+      setProductInterest(e.detail.productName);
+    };
+    window.addEventListener("prefill-product-contact", handlePrefill);
+    return () => window.removeEventListener("prefill-product-contact", handlePrefill);
+  }, []);
 
   return (
     <section id="contact" className="py-24 bg-secondary/40" dir={isAr ? "rtl" : "ltr"}>
@@ -18,9 +27,7 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-xl mx-auto mb-14"
         >
-          <span className="text-primary font-semibold uppercase text-sm tracking-[0.2em]">
-            {isAr ? "تواصل معنا" : "Get in Touch"}
-          </span>
+       
           <h2 className="font-display text-3xl md:text-5xl font-bold mt-3 text-balance">
             {isAr ? "اتصل ببركة الواحة" : "Contact Barakat Al Waha"}
           </h2>
@@ -126,22 +133,31 @@ export default function Contact() {
             onSubmit={(e) => {
               e.preventDefault();
               setSent(true);
+              setProductInterest("");
+              e.target.reset();
               setTimeout(() => setSent(false), 3000);
             }}
             className="bg-white rounded-3xl p-8 shadow-xl space-y-5"
           >
             <div className="grid sm:grid-cols-2 gap-5">
-              <Field label={isAr ? "اسمك" : "Your Name"} type="text" />
-              <Field label={isAr ? "البريد الإلكتروني" : "Email"} type="email" />
+              <Field label={isAr ? "الاسم الكامل" : "Full Name"} type="text" placeholder={isAr ? "أدخل اسمك الكامل" : "Full Name"} />
+              <Field label={isAr ? "عنوان البريد الإلكتروني" : "Email Address"} type="email" placeholder={isAr ? "example@email.com" : "Email Address"} />
             </div>
-            <Field label={isAr ? "المنتج المهتم به" : "Product Interested In"} type="text" />
+            <Field
+              label={isAr ? "الموضوع" : "Subject"}
+              type="text"
+              placeholder={isAr ? "موضوع رسالتك" : "Subject"}
+              value={productInterest}
+              onChange={(e) => setProductInterest(e.target.value)}
+            />
             <div>
               <label className="block text-sm font-medium mb-2">
-                {isAr ? "الرسالة" : "Message"}
+                {isAr ? "رسالتك" : "Your Message"}
               </label>
               <textarea
                 rows={5}
                 required
+                placeholder={isAr ? "أدخل رسالتك هنا..." : "Your Message"}
                 className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
@@ -163,17 +179,40 @@ export default function Contact() {
             </button>
           </motion.form>
         </div>
+
+        {/* Google Maps Container */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mt-12 rounded-3xl overflow-hidden shadow-lg border border-slate-100 h-[400px] w-full"
+        >
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3608.1256037084534!2d55.32832577631388!3d25.26635817766627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5ccfc28a7e47%3A0xe54d924dc1c1f5ab!2sBusiness%20Village%20-%20Dubai!5e0!3m2!1sen!2sae!4v1716616000000!5m2!1sen!2sae"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Barakat Al Waha Location Map"
+          />
+        </motion.div>
       </div>
     </section>
   );
 }
 
-function Field({ label, type }) {
+function Field({ label, type, value, onChange, placeholder }) {
   return (
     <div>
       <label className="block text-sm font-medium mb-2">{label}</label>
       <input
         type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
         required
         className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
       />
