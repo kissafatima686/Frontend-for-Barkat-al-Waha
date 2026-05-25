@@ -147,20 +147,7 @@ export default function Navbar() {
       className="fixed top-0 inset-x-0 z-50 bg-brand-dark border-b border-white/10 shadow-lg flex flex-col w-full"
       dir={isAr ? "rtl" : "ltr"}
     >
-      {/* 1. TOP MARQUEE BAR */}
-      <div
-        className={`bg-[#111827] text-white flex items-center transition-all duration-300 overflow-hidden ${
-          scrolled ? "h-0 opacity-0" : "h-10 opacity-100"
-        }`}
-      >
-        <div className="w-full max-w-[1170px] mx-auto px-4 flex items-center">
-          <marquee className="text-xs md:text-sm font-medium" scrollamount="5">
-            {t.marqueeText}
-          </marquee>
-        </div>
-      </div>
-
-      {/* 2. MAIN NAVBAR */}
+      {/* MAIN NAVBAR */}
       <div className="w-full bg-brand-dark/95 backdrop-blur transition-all duration-300">
         <div className="w-[1170px] mx-auto px-4 flex items-center justify-between h-[96px]">
           {/* Logo */}
@@ -286,27 +273,6 @@ export default function Navbar() {
               {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
-        </div>
-      </div>
-
-      {/* 3. BOTTOM INFO BAR */}
-      <div
-        className={`bg-secondary text-slate-800 border-t border-b border-slate-200 transition-all duration-300 overflow-hidden text-xs md:text-sm font-medium ${
-          scrolled ? "h-0 opacity-0" : "h-10 opacity-100 py-2.5"
-        }`}
-      >
-        <div className="max-w-[1170px] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-1.5">
-          <div>{t.contactLabel}</div>
-          <div>
-            {t.emailLabel}
-            <a
-              href="mailto:info@barakatalwaha.com"
-              className="text-primary hover:underline font-semibold ml-1.5 transition-colors"
-            >
-              info@barakatalwaha.com
-            </a>
-          </div>
-          <div>{t.companyLabel}</div>
         </div>
       </div>
 
