@@ -68,9 +68,7 @@ export default function About() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <span className="text-primary font-semibold uppercase text-sm tracking-[0.2em]">
-            {isAr ? "معلومات عنا" : "About Us"}
-          </span>
+        
           <h2 className="font-display text-3xl md:text-5xl font-bold mt-3 mb-6 leading-tight text-balance">
             {isAr ? "مزود أغذية مجمدة ممتاز" : "Premium Frozen Food Provider"}
           </h2>

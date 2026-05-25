@@ -30,7 +30,7 @@ export default function Stats() {
 
   return (
     <section
-      id="why-us"
+      id="stats"
       className={`relative py-24 overflow-hidden gradient-brand ${language === "ar" ? "rtl" : "ltr"}`}
     >
       <div
@@ -49,9 +49,7 @@ export default function Stats() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <span className="text-accent font-semibold uppercase text-sm tracking-[0.2em]">
-            {language === "ar" ? "تأثيرنا" : "Our Impact"}
-          </span>
+         
           <h2 className="font-display text-3xl md:text-5xl font-bold mt-3 text-balance">
             {language === "ar"
               ? "التميز في الأغذية المجمدة الممتازة"

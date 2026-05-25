@@ -47,8 +47,8 @@ const nav = [
   { label: "about", href: "#about", key: "about" },
   { label: "featuredProducts", href: "#featured-products", key: "featuredProducts" },
   { label: "products", href: "#products", key: "products" },
-  { label: "whyUs", href: "#why-us", key: "whyUs" },
   { label: "ourVision", href: "#our-vision", key: "ourVision" },
+  { label: "whyUs", href: "#why-us", key: "whyUs" },
   { label: "contact", href: "#contact", key: "contact" },
 ];
 
@@ -110,16 +110,37 @@ export default function Navbar() {
       );
     });
 
+    const scrollAndSelect = (catId) => {
+      window.dispatchEvent(new CustomEvent("select-category-pill", { detail: { categoryId: catId } }));
+      const element = document.getElementById("products");
+      if (element) {
+        const navbarHeight = 96;
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - navbarHeight;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    };
+
     if (match) {
-      window.location.hash = `#/product/${match[0]}`;
+      const productCat = match[1].category;
+      const categoryMap = {
+        "Frozen Chicken": "chicken",
+        "Frozen Meat": "meat",
+        "Frozen Seafood": "seafood",
+      };
+      const catId = categoryMap[productCat] || "all";
+      scrollAndSelect(catId);
       e.target.reset();
     } else {
       // Categorical routing fallback
       if (query.includes("meat") || query.includes("لحم")) {
-        window.location.hash = "#/category/frozen-meat";
+        scrollAndSelect("meat");
         e.target.reset();
       } else if (query.includes("chicken") || query.includes("دجاج")) {
-        window.location.hash = "#/category/frozen-chicken";
+        scrollAndSelect("chicken");
         e.target.reset();
       } else if (
         query.includes("sea") ||
@@ -127,7 +148,7 @@ export default function Navbar() {
         query.includes("سمك") ||
         query.includes("روبيان")
       ) {
-        window.location.hash = "#/category/frozen-seafood";
+        scrollAndSelect("seafood");
         e.target.reset();
       } else {
         alert(

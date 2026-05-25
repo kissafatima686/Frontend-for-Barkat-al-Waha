@@ -41,7 +41,7 @@ export default function OurVision() {
             transition={{ duration: 0.5 }}
             className="text-primary font-semibold uppercase text-sm tracking-[0.2em] block mb-3"
           >
-            {isAr ? "من نحن" : "Our Mission"}
+
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -106,9 +106,9 @@ export default function OurVision() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-3xl p-8 md:p-12 border border-primary/20"
+          className="bg-gradient-to-br from-[#00682a] to-[#004d1f] rounded-3xl p-8 md:p-12 shadow-xl border border-[#005a24] text-white"
         >
-          <h3 className="font-display text-2xl md:text-3xl font-bold mb-6 text-center">
+          <h3 className="font-display text-2xl md:text-3xl font-bold mb-6 text-center text-white">
             {isAr ? "قيمنا الأساسية" : "Our Core Values"}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
@@ -118,10 +118,10 @@ export default function OurVision() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <h4 className="font-bold text-lg mb-2 text-primary">
+              <h4 className="font-bold text-lg mb-2 text-accent">
                 {isAr ? "النزاهة" : "Integrity"}
               </h4>
-              <p className="text-foreground/70">
+              <p className="text-white/80">
                 {isAr
                   ? "نلتزم بأعلى معايير الأخلاقيات والشفافية"
                   : "Committed to highest ethical standards"}
@@ -133,10 +133,10 @@ export default function OurVision() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h4 className="font-bold text-lg mb-2 text-primary">
+              <h4 className="font-bold text-lg mb-2 text-accent">
                 {isAr ? "الابتكار" : "Innovation"}
               </h4>
-              <p className="text-foreground/70">
+              <p className="text-white/80">
                 {isAr
                   ? "البحث عن طرق جديدة لتحسين خدماتنا"
                   : "Constantly seeking ways to improve"}
@@ -148,10 +148,10 @@ export default function OurVision() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <h4 className="font-bold text-lg mb-2 text-primary">
+              <h4 className="font-bold text-lg mb-2 text-accent">
                 {isAr ? "المسؤولية" : "Responsibility"}
               </h4>
-              <p className="text-foreground/70">
+              <p className="text-white/80">
                 {isAr
                   ? "نتحمل مسؤوليتنا تجاه المجتمع والبيئة"
                   : "Responsible to community & environment"}

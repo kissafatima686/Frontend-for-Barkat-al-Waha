@@ -9,33 +9,49 @@ import Stats from "@/components/site/Stats.jsx";
 import Testimonials from "@/components/site/Testimonials.jsx";
 import Contact from "@/components/site/Contact.jsx";
 import Footer from "@/components/site/Footer.jsx";
-import CategoryPage from "@/components/site/CategoryPage.jsx";
-import ProductDetailsPage from "@/components/site/ProductDetailsPage.jsx";
+import Preloader from "@/components/Preloader.jsx";
 
 // Smooth scrolling helper for hash navigation
-function HashScrollHandler({ route }) {
+function HashScrollHandler({ route, isPreloaderComplete }) {
   useEffect(() => {
+    // Only run after preloader is complete
+    if (!isPreloaderComplete) return;
+
     const hash = window.location.hash;
     
     // Check if the hash is a section anchor on the home page (e.g., #about, #contact)
-    if (hash && !hash.startsWith("#/category") && !hash.startsWith("#/product")) {
+    if (hash && !hash.startsWith("#/")) {
       const targetId = hash.replace("#", "");
-      const element = document.getElementById(targetId);
-      if (element) {
-        const navbarHeight = 96;
-        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-        const offsetPosition = elementPosition - navbarHeight;
+      
+      const scrollToTarget = () => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          const navbarHeight = 96;
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - navbarHeight;
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+          return true;
+        }
+        return false;
+      };
+
+      // Try immediately, if it fails, retry after a micro-delay once the DOM is ready
+      if (!scrollToTarget()) {
+        const timer = setTimeout(scrollToTarget, 100);
+        return () => clearTimeout(timer);
       }
     } else {
-      // For full page transitions, always scroll back to top
-      window.scrollTo(0, 0);
+      // For full page transitions or initial load, scroll to navbar
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     }
-  }, [route]);
+  }, [route, isPreloaderComplete]);
 
   return null;
 }
@@ -43,6 +59,7 @@ function HashScrollHandler({ route }) {
 // Custom simple router based on window location hash
 function Router() {
   const [route, setRoute] = useState(window.location.hash || "#/");
+  const [isPreloaderComplete, setIsPreloaderComplete] = useState(false);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -52,25 +69,20 @@ function Router() {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  let view = null;
-
-  if (route.startsWith("#/category/")) {
-    // Extract category id, e.g., frozen-meat
-    const categoryId = route.replace("#/category/", "");
-    view = <CategoryPage categoryId={categoryId} />;
-  } else if (route.startsWith("#/product/")) {
-    // Extract product id, e.g., beef-cubes
-    const productId = route.replace("#/product/", "");
-    view = <ProductDetailsPage productId={productId} />;
-  } else {
-    // Home route or general anchor section hashes
-    view = <HomePage />;
-  }
+  const handlePreloaderComplete = () => {
+    setIsPreloaderComplete(true);
+    // Scroll to navbar after preloader completes
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <>
-      <HashScrollHandler route={route} />
-      {view}
+      <Preloader onLoadComplete={handlePreloaderComplete} />
+      <HashScrollHandler route={route} isPreloaderComplete={isPreloaderComplete} />
+      <HomePage />
     </>
   );
 }
@@ -99,11 +111,11 @@ function HomePage() {
     <main className="bg-background text-foreground">
       <Navbar />
       <Hero />
-      <FeaturedProducts />
-      <OurVision />
       <About />
-      <Products />
+      <FeaturedProducts />
       <Stats />
+      <Products />
+      <OurVision />
       <Testimonials />
       <Contact />
       <Footer />

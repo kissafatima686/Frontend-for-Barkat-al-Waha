@@ -9,7 +9,13 @@ export default function Footer() {
   return (
     <>
       <footer className="bg-brand-dark text-white pt-16 pb-8" dir={isAr ? "rtl" : "ltr"}>
-        <div className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 lg:grid-cols-4 gap-10"
+        >
           <div>
             <a
               href="#home"
@@ -36,11 +42,47 @@ export default function Footer() {
           <FooterCol
             title={isAr ? "المنتجات" : "Products"}
             links={[
-              { label: isAr ? "اللحوم المجمدة" : "Frozen Meat", href: "#/category/frozen-meat" },
-              { label: isAr ? "الدجاج المجمد" : "Frozen Chicken", href: "#/category/frozen-chicken" },
+              {
+                label: isAr ? "اللحوم المجمدة" : "Frozen Meat",
+                href: "#products",
+                onClick: (e) => {
+                  e.preventDefault();
+                  window.dispatchEvent(new CustomEvent("select-category-pill", { detail: { categoryId: "meat" } }));
+                  const el = document.getElementById("products");
+                  if (el) {
+                    const navbarHeight = 96;
+                    const pos = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+                    window.scrollTo({ top: pos, behavior: "smooth" });
+                  }
+                }
+              },
+              {
+                label: isAr ? "الدجاج المجمد" : "Frozen Chicken",
+                href: "#products",
+                onClick: (e) => {
+                  e.preventDefault();
+                  window.dispatchEvent(new CustomEvent("select-category-pill", { detail: { categoryId: "chicken" } }));
+                  const el = document.getElementById("products");
+                  if (el) {
+                    const navbarHeight = 96;
+                    const pos = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+                    window.scrollTo({ top: pos, behavior: "smooth" });
+                  }
+                }
+              },
               {
                 label: isAr ? "المأكولات البحرية المجمدة" : "Frozen Seafood",
-                href: "#/category/frozen-seafood",
+                href: "#products",
+                onClick: (e) => {
+                  e.preventDefault();
+                  window.dispatchEvent(new CustomEvent("select-category-pill", { detail: { categoryId: "seafood" } }));
+                  const el = document.getElementById("products");
+                  if (el) {
+                    const navbarHeight = 96;
+                    const pos = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+                    window.scrollTo({ top: pos, behavior: "smooth" });
+                  }
+                }
               },
               { label: isAr ? "قطع ممتازة" : "Premium Cuts", href: "#products" },
             ]}
@@ -52,7 +94,9 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-white/70">
               <li>
-                {isAr ? "بزنس فيلج بلوك-ب، دبي، الإمارات" : "Business Village Block-B, Dubai, UAE"}
+                {isAr
+                  ? "بزنس فيلج بلوك-ب، الطابق 3، مكتب 301، دبي، الإمارات، بالقرب من محطة مترو DCC مخرج 3 ومقابل (برج الساعة دبي)"
+                  : "Business Village Block-B 3rd Floor, 301 Office, Dubai, UAE, Near DCC metro station Exit 3 and Opposite to (Clock Tower Dubai)"}
               </li>
               <li>
                 <a href="tel:+97142942220" className="hover:text-accent transition-colors">
@@ -69,14 +113,46 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 md:px-8 mt-12 pt-6 border-t border-white/10 text-sm text-white/60 flex flex-col md:flex-row gap-2 justify-between">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="max-w-7xl mx-auto px-4 md:px-8 mt-12 pt-6 border-t border-white/10 text-sm text-white/60 flex flex-col md:flex-row gap-2 justify-between"
+        >
           <p>
             © {new Date().getFullYear()} {isAr ? "بركة الواحة" : "Barakat Al Waha"}.{" "}
             {isAr ? "جميع الحقوق محفوظة" : "All rights reserved"}.
           </p>
-          <p>{isAr ? "مزود أغذية مجمدة ممتاز" : "Premium Frozen Food Provider"}</p>
-        </div>
+          <p>
+            {isAr ? (
+              <>
+                طُوِّر بواسطة{" "}
+                <a
+                  href="https://it.swiftsignbm.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline font-semibold"
+                >
+                  SWIFT SIGN IT
+                </a>
+              </>
+            ) : (
+              <>
+                Developed By{" "}
+                <a
+                  href="https://it.swiftsignbm.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline font-semibold"
+                >
+                  SWIFT SIGN IT
+                </a>
+              </>
+            )}
+          </p>
+        </motion.div>
       </footer>
 
       <motion.a
@@ -105,7 +181,11 @@ function FooterCol({ title, links }) {
       <ul className="space-y-2 text-sm">
         {links.map((link) => (
           <li key={link.label}>
-            <a href={link.href} className="text-white/70 hover:text-accent transition-colors">
+            <a
+              href={link.href}
+              onClick={link.onClick}
+              className="text-white/70 hover:text-accent transition-colors"
+            >
               {link.label}
             </a>
           </li>

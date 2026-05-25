@@ -44,7 +44,7 @@ export default function Testimonials() {
   const items = isAr ? itemsAr : itemsEn;
 
   return (
-    <section className="py-24 bg-background" dir={isAr ? "rtl" : "ltr"}>
+    <section id="why-us" className="py-24 bg-background" dir={isAr ? "rtl" : "ltr"}>
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
@@ -53,9 +53,7 @@ export default function Testimonials() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-xl mx-auto mb-14"
         >
-          <span className="text-primary font-semibold uppercase text-sm tracking-[0.2em]">
-            {isAr ? "آراء العملاء" : "Testimonials"}
-          </span>
+         
           <h2 className="font-display text-3xl md:text-5xl font-bold mt-3 text-balance">
             {isAr ? "ماذا يقول عملاؤنا" : "What Clients Say About Us"}
           </h2>
