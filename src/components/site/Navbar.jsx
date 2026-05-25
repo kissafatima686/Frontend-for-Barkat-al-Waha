@@ -170,10 +170,10 @@ export default function Navbar() {
     >
       {/* MAIN NAVBAR */}
       <div className="w-full bg-brand-dark/95 backdrop-blur transition-all duration-300">
-        <div className="w-[1170px] mx-auto px-4 flex items-center justify-between h-[96px]">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-[96px]">
           {/* Logo */}
           <a href="#home" className="flex items-center shrink-0 mr-4">
-            <img src="/logo/log.png" alt="Barakat Al Waha Logo" className="h-[100px] w-[100px]" />
+            <img src="/logo/log.png" alt="Barakat Al Waha Logo" className="h-[80px] md:h-[100px] w-[80px] md:w-[100px]" />
           </a>
 
           {/* Desktop Menu */}
@@ -218,15 +218,16 @@ export default function Navbar() {
           </nav>
 
           {/* Actions & Search */}
-          <div className="flex items-center gap-3 shrink-0">
-            {/* Language Switcher */}
+          <div className="flex items-center gap-2 md:gap-3 shrink-0">
+            {/* Language Switcher - Mobile & Desktop */}
             <div className="relative">
               <button
                 onClick={() => setLangOpen(!langOpen)}
-                className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent text-brand-dark font-bold text-xs hover:scale-105 transition-transform cursor-pointer whitespace-nowrap"
+                className="flex items-center gap-1 md:gap-1.5 px-2 md:px-2.5 py-1 rounded-full bg-accent text-brand-dark font-bold text-xs md:text-xs hover:scale-105 transition-transform cursor-pointer whitespace-nowrap"
               >
-                <Globe className="w-3.5 h-3.5" />
-                {language === "en" ? "English" : "العربية"}
+                <Globe className="w-3 md:w-3.5 h-3 md:h-3.5" />
+                <span className="hidden sm:inline">{language === "en" ? "English" : "العربية"}</span>
+                <span className="sm:hidden">{language === "en" ? "EN" : "AR"}</span>
                 <ChevronDown
                   className={`w-3 h-3 transition-transform ${langOpen ? "rotate-180" : ""}`}
                 />
@@ -265,10 +266,10 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            {/* Search Bar (very right end) */}
+            {/* Search Bar - Desktop Only */}
             <form
               onSubmit={handleSearchSubmit}
-              className="hidden xl:flex items-center border border-white/20 rounded-full overflow-hidden bg-white h-8 shadow-sm w-40 xl:w-48"
+              className="hidden md:flex items-center border border-white/20 rounded-full overflow-hidden bg-white h-8 shadow-sm w-32 lg:w-40 xl:w-48"
             >
               <input
                 type="text"

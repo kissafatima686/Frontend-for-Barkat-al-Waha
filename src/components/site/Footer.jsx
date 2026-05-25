@@ -8,20 +8,20 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-brand-dark text-white pt-16 pb-8" dir={isAr ? "rtl" : "ltr"}>
+      <footer className="bg-brand-dark text-white pt-12 md:pt-16 pb-8" dir={isAr ? "rtl" : "ltr"}>
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 lg:grid-cols-4 gap-10"
+          className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10"
         >
           <div>
             <a
               href="#home"
               className="flex items-center mb-4 hover:opacity-90 transition-opacity"
             >
-              <img src="/logo/log.png" alt="Barakat Al Waha Logo" style={{ width: "100px", height: "100px" }} className="object-contain" />
+              <img src="/logo/log.png" alt="Barakat Al Waha Logo" style={{ width: "80px", height: "80px" }} className="object-contain" />
             </a>
             <p className="text-sm text-white/70 leading-relaxed">
               {isAr
@@ -89,10 +89,10 @@ export default function Footer() {
           />
 
           <div>
-            <h4 className="font-display text-lg font-semibold mb-4">
+            <h4 className="font-display text-base md:text-lg font-semibold mb-4">
               {isAr ? "اتصل بنا" : "Contact"}
             </h4>
-            <ul className="space-y-2 text-sm text-white/70">
+            <ul className="space-y-2 md:space-y-3 text-xs md:text-sm text-white/70">
               <li>
                 {isAr
                   ? "بزنس فيلج بلوك-ب، الطابق 3، مكتب 301، دبي، الإمارات، بالقرب من محطة مترو DCC مخرج 3 ومقابل (برج الساعة دبي)"
@@ -106,7 +106,7 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:info@barakatalwaha.com"
-                  className="hover:text-accent transition-colors"
+                  className="hover:text-accent transition-colors break-all"
                 >
                   info@barakatalwaha.com
                 </a>
@@ -119,7 +119,7 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-7xl mx-auto px-4 md:px-8 mt-12 pt-6 border-t border-white/10 text-sm text-white/60 flex flex-col md:flex-row gap-2 justify-between"
+          className="max-w-7xl mx-auto px-4 md:px-8 mt-10 md:mt-12 pt-6 border-t border-white/10 text-xs md:text-sm text-white/60 flex flex-col gap-3 md:flex-row md:gap-2 justify-between text-center md:text-left"
         >
           <p>
             © {new Date().getFullYear()} {isAr ? "بركة الواحة" : "Barakat Al Waha"}.{" "}
@@ -162,7 +162,7 @@ export default function Footer() {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1.5, type: "spring" }}
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform"
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40 w-12 md:w-14 h-12 md:h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform"
         aria-label="WhatsApp"
       >
         <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
@@ -177,8 +177,8 @@ export default function Footer() {
 function FooterCol({ title, links }) {
   return (
     <div>
-      <h4 className="font-display text-lg font-semibold mb-4">{title}</h4>
-      <ul className="space-y-2 text-sm">
+      <h4 className="font-display text-base md:text-lg font-semibold mb-4">{title}</h4>
+      <ul className="space-y-2 md:space-y-3 text-xs md:text-sm">
         {links.map((link) => (
           <li key={link.label}>
             <a
